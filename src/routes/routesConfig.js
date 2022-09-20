@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PeoplePage from '@containers/PeoplePage'
-import HomePage from '@containers/HomePage'
-import NotFoundPage from '@containers/NotFoundPage'
+import PeoplePage from '@containers/PeoplePage';
+import HomePage from '@containers/HomePage';
+import NotFoundPage from '@containers/NotFoundPage';
 
 
 const routesConfig = [
@@ -16,11 +16,11 @@ const routesConfig = [
     },
     {
         path: '/not-found',
-        component: <NotFoundPage />
+        element: <NotFoundPage />
     },
     {
         path: '*',
-        component: <NotFoundPage />
+        element: <NotFoundPage />
     }
 ];
 

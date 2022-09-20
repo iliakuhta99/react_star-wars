@@ -8,15 +8,9 @@ const Header = () => {
         <>
             <div className={styles.container}>
                 <ul className={styles.list__container}>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/people/?page=1">People</Link>
-                    </li>
-                    <li>
-                        <Link to="/not-found">Not found</Link>
-                    </li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/people/?page=1">People</Link></li>
+                    <li><Link to="/not-found">Not found</Link></li>
                 </ul>
             </div>
         </>

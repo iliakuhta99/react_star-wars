@@ -7,11 +7,13 @@ import { withErrorApi } from '@hoc-helpers/withErrorApi';
 //ui
 //components
 import PeopleList from '@components/PeoplePage/PeopleList';
-//huc (what is this?)
+import PeopleNavigation from '@components/PeoplePage/PeopleNavigation';
+//hook (what is this?)
+import { useQueryParams } from '@hooks/useQueryParams';
 //routes
 //utils
-import { getApiResource } from '@utils/network';
-import { getPeopleId, getPeopleImage } from '@services/getPeopleData';
+import { getApiResource, changeHTTP } from '@utils/network';
+import { getPeopleId, getPeopleImage, getPeoplePageId } from '@services/getPeopleData';
 //constants
 import { API_PEOPLE } from '@constants/api';
 //styles
@@ -22,7 +24,12 @@ import styles from './PeoplePage.module.css';
 
 const PeoplePage = ({ setErrorApi }) => {
     const [people, setPeople] = useState(null);
+    const [prevPage, setPrevPage] = useState(null);
+    const [nextPage, setNextPage] = useState(null);
+    const [counterPage, setCounterPage] = useState(1);
 
+    const query = useQueryParams();
+    const queryPage = query.get('page')
 
     const getResource = async (url) => {
 
@@ -42,6 +49,9 @@ const PeoplePage = ({ setErrorApi }) => {
 
             setPeople(peopleList);
             setErrorApi(false);
+            setPrevPage(changeHTTP(res.previous));
+            setNextPage(changeHTTP(res.next));
+            setCounterPage(getPeoplePageId(url));
         }
         else {
             setErrorApi(true);
@@ -49,13 +59,17 @@ const PeoplePage = ({ setErrorApi }) => {
     }
 
     useEffect(() => {
-        getResource(API_PEOPLE);
+        getResource(API_PEOPLE + queryPage);
     }, []);
 
     return (
         <>
             <>
-                <h1>Navigation</h1>
+                <PeopleNavigation
+                    getResource={getResource}
+                    prevPage={prevPage}
+                    nextPage={nextPage}
+                    counterPage={counterPage} />
                 {people && (<PeopleList people={people} />)}
             </>
         </>
