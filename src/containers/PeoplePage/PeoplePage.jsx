@@ -1,11 +1,23 @@
 
+//librories
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+//hoc
+import { withErrorApi } from '@hoc-helpers/withErrorApi';
+//ui
+//components
+import PeopleList from '@components/PeoplePage/PeopleList';
+//huc (what is this?)
+//routes
+//utils
+import { getApiResource } from '@utils/network';
+import { getPeopleId, getPeopleImage } from '@services/getPeopleData';
+//constants
+import { API_PEOPLE } from '@constants/api';
+//styles
 import styles from './PeoplePage.module.css';
-import { useState, useEffect } from 'react';
-import { getApiResource } from '../../utils/network';
-import { API_PEOPLE } from '../../constants/api';
-import { getPeopleId, getPeopleImage } from '../../services/getPeopleData';
-import PeopleList from '../../components/PeoplePage/PeopleList';
-import { withErrorApi } from '../../hoc-helpers/withErrorApi';
+
+
 
 
 const PeoplePage = ({ setErrorApi }) => {
@@ -49,5 +61,11 @@ const PeoplePage = ({ setErrorApi }) => {
         </>
     )
 }
+
+PeoplePage.propTypes = {
+    setErrorApi: PropTypes.func
+}
+
+
 
 export default withErrorApi(PeoplePage);
